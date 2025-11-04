@@ -619,7 +619,10 @@ class TaskExporter(_ExporterBase, _TaskBackupBase):
                 ]
                 data['validation_layout'] = validation_params
 
-            if self._db_data.storage == StorageChoice.CLOUD_STORAGE and not self._lightweight:
+            if (
+                self._db_data.storage == StorageChoice.SHARE
+                or self._db_data.storage == StorageChoice.CLOUD_STORAGE and not self._lightweight
+            ):
                 data["storage"] = StorageChoice.LOCAL
 
             return self._prepare_data_meta(data)

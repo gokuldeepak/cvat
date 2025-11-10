@@ -49,7 +49,7 @@ from cvat.apps.engine import models
 from cvat.apps.engine.cache import MediaCache
 from cvat.apps.engine.cloud_provider import db_storage_to_storage_instance
 from cvat.apps.engine.log import ServerLogManager
-from cvat.apps.engine.models import DataChoice, StorageChoice, StorageMethodChoice
+from cvat.apps.engine.models import DataChoice, StorageChoice
 from cvat.apps.engine.serializers import (
     AnnotationGuideWriteSerializer,
     AssetWriteSerializer,
@@ -619,7 +619,10 @@ class TaskExporter(_ExporterBase, _TaskBackupBase):
                 ]
                 data['validation_layout'] = validation_params
 
-            if self._db_data.storage == StorageChoice.CLOUD_STORAGE and not self._lightweight:
+            if (
+                self._db_data.storage == StorageChoice.SHARE
+                or self._db_data.storage == StorageChoice.CLOUD_STORAGE and not self._lightweight
+            ):
                 data["storage"] = StorageChoice.LOCAL
             else:
                 data["storage"] = self._db_data.storage
@@ -671,10 +674,6 @@ class TaskExporter(_ExporterBase, _TaskBackupBase):
         self._write_annotation_guide(zip_obj, target_dir)
 
     def export_to(self, file: str | ZipFile, target_dir: str | None = None):
-        if self._db_task.data.storage_method == StorageMethodChoice.FILE_SYSTEM and \
-                self._db_task.data.storage == StorageChoice.SHARE:
-            raise Exception('The task cannot be exported because it does not contain any raw data')
-
         if isinstance(file, str):
             with ZipFile(file, 'w') as zf:
                 self._export_task(zip_obj=zf, target_dir=target_dir)

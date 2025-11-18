@@ -336,6 +336,9 @@ export interface PluginsState {
                 };
             };
         };
+        annotationActions: {
+            beforeJobClose: ((jobInstance: Job) => CallbackReturnType)[];
+        };
     };
     overridableComponents: {
         annotationPage: {
@@ -392,6 +395,11 @@ export interface PluginsState {
         loginPage: {
             loginForm: PluginComponent[];
         };
+        annotationPage: {
+            player: {
+                slider: PluginComponent[];
+            };
+        }
         modelsPage: {
             topBar: {
                 items: PluginComponent[];
@@ -414,6 +422,9 @@ export interface PluginsState {
             items: PluginComponent[];
         };
         jobActions: {
+            items: PluginComponent[];
+        };
+        annotationActions: {
             items: PluginComponent[];
         };
         taskItem: {

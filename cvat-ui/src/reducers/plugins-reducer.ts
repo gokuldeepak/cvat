@@ -22,6 +22,9 @@ const defaultState: PluginsState = {
                 },
             },
         },
+        annotationActions: {
+            beforeJobClose: [],
+        },
     },
     overridableComponents: {
         annotationPage: {
@@ -52,6 +55,11 @@ const defaultState: PluginsState = {
         loginPage: {
             loginForm: [],
         },
+        annotationPage: {
+            player: {
+                slider: [],
+            },
+        },
         modelsPage: {
             topBar: {
                 items: [],
@@ -74,6 +82,9 @@ const defaultState: PluginsState = {
             items: [],
         },
         jobActions: {
+            items: [],
+        },
+        annotationActions: {
             items: [],
         },
         taskItem: {

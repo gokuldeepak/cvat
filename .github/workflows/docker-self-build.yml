@@ -7,6 +7,9 @@ on:
     branches: [ az/memray ]
   workflow_dispatch:
 
+runs-on: self-hosted
+
+
 jobs:
   build-and-run:
     runs-on: ubuntu-latest

@@ -18,20 +18,24 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build backend image
-        run: |
-          docker build -t cvat-server:latest -f Dockerfile .
+      - name: Check docker version
+        run: docker version
 
-      - name: Build UI image
-        run: |
-          docker build -t cvat-ui:latest -f Dockerfile.ui .
 
-      - name: Show built images
-        run: docker images
+      # - name: Build backend image
+      #   run: |
+      #     docker build -t cvat-server:latest -f Dockerfile .
 
-      - name: Run docker compose
-        run: |
-          docker compose -f docker-compose-self-build.yml up -d
+      # - name: Build UI image
+      #   run: |
+      #     docker build -t cvat-ui:latest -f Dockerfile.ui .
 
-      - name: Show running containers
-        run: docker ps -a
+      # - name: Show built images
+      #   run: docker images
+
+      # - name: Run docker compose
+      #   run: |
+      #     docker compose -f docker-compose-self-build.yml up -d
+
+      # - name: Show running containers
+      #   run: docker ps -a
